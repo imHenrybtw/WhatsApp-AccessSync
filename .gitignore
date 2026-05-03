@@ -1,0 +1,11 @@
+# Credentials — NEVER commit these
+credentials.json
+aes.key
+
+# Runtime data
+data/
+logs/
+
+# OS junk
+Thumbs.db
+.DS_Store
