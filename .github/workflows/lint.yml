@@ -1,0 +1,41 @@
+name: PSScriptAnalyzer
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
+
+      - name: Check for errors (fails build)
+        shell: pwsh
+        run: |
+          $errors = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error
+          if ($errors) {
+            Write-Host "PSScriptAnalyzer found $($errors.Count) error(s):" -ForegroundColor Red
+            $errors | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize -Wrap
+            exit 1
+          }
+          Write-Host "No errors found." -ForegroundColor Green
+
+      - name: Report warnings (informational only)
+        shell: pwsh
+        run: |
+          $warnings = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Warning
+          if ($warnings) {
+            Write-Host "$($warnings.Count) warning(s) found (informational — not failing build):" -ForegroundColor Yellow
+            $warnings | Format-Table RuleName, ScriptName, Line, Message -AutoSize -Wrap
+          } else {
+            Write-Host "No warnings found." -ForegroundColor Green
+          }
