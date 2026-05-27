@@ -14,6 +14,12 @@
     License : GNU General Public License v3.0
 #>
 
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+    'PSAvoidUsingConvertToSecureStringWithPlainText', '',
+    Justification = 'Credential setup script: accepts plaintext input once from the admin to generate the AES-encrypted credential store. Plaintext is immediately encrypted and never persisted to disk in plain form.'
+)]
+param()
+
 $scriptDir       = Split-Path -Parent $MyInvocation.MyCommand.Path
 $credentialsPath = Join-Path $scriptDir "..\credentials.json"
 $keyPath         = Join-Path $scriptDir "..\aes.key"
