@@ -1,5 +1,9 @@
 # AD WhatsApp Access Manager
 
+[![PSScriptAnalyzer](https://github.com/imHenrybtw/WhatsApp-AccessSync/actions/workflows/lint.yml/badge.svg)](https://github.com/imHenrybtw/WhatsApp-AccessSync/actions/workflows/lint.yml)
+[![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat)](LICENSE)
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B%20%7C%207%2B-5391FE?style=flat&logo=powershell&logoColor=white)](https://github.com/PowerShell/PowerShell)
+
 Automated Active Directory group management based on WhatsApp connection status reported by a third-party audit API. Designed to run on a schedule and enforce network access policies in real time — without manual intervention.
 
 ---
